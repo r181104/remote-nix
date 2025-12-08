@@ -24,6 +24,7 @@ in {
   ];
 
   systemd.services.fastapi-app = {
+    enable = true;
     description = "FastAPI example app (uvicorn)";
     wants = ["network.target"];
     after = ["network.target"];
