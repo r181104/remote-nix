@@ -42,7 +42,7 @@ in {
   nix.settings.auto-optimise-store = true;
 
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowedTCPPorts = [22];
     allowedUDPPorts = [51820];
     interfaces."wg0" = {
