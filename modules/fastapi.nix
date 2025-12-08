@@ -33,8 +33,7 @@ in {
       User = "fastapi";
       Group = "fastapi";
       Restart = "on-failure";
-      Environment = "PYTHONUNBUFFERED=1 PYTHONPATH=/var/lib/fastapi";
-      WorkingDirectory = "/var/lib/fastapi";
+      Environment = "PYTHONUNBUFFERED=1";
     };
 
     preStart = ''
