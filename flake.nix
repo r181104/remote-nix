@@ -17,7 +17,7 @@
       hostname = "remote-nix";
       domain = "local";
       fqdn = "${hostname}.${domain}";
-    in {inherit username hostname domain fqdn;};
+    in {inherit hostname domain fqdn;};
   in {
     nixosConfigurations.${env.hostname} = nixpkgs.lib.nixosSystem {
       system = system;
