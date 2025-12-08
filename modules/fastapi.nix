@@ -22,12 +22,10 @@ in {
   systemd.tmpfiles.rules = [
     "d /var/lib/fastapi 0750 fastapi fastapi - -"
   ];
-
-  # add/replace in your module fastapi.nix
+  # /etc/nixos/modules/fastapi.nix (snippet)
   systemd.services.fastapi-app = {
     enable = true;
     description = "FastAPI example app (uvicorn)";
-    wantedBy = ["multi-user.target"]; # optional top-level - nix will set install.wantedBy automatically if present
     serviceConfig = {
       User = "fastapi";
       Group = "fastapi";
@@ -40,6 +38,6 @@ in {
       mkdir -p /var/lib/fastapi
       chown -R fastapi:fastapi /var/lib/fastapi
     '';
-    install.wantedBy = ["multi-user.target"]; # ensures `systemctl enable` behaves as expected
+    install.wantedBy = ["multi-user.target"]; # <-- correct attribute
   };
 }
