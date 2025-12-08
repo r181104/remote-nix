@@ -23,34 +23,23 @@ in {
     "d /var/lib/fastapi 0750 fastapi fastapi - -"
   ];
 
+  # add/replace in your module fastapi.nix
   systemd.services.fastapi-app = {
     enable = true;
     description = "FastAPI example app (uvicorn)";
-    wants = ["network.target"];
-    after = ["network.target"];
-
+    wantedBy = ["multi-user.target"]; # optional top-level - nix will set install.wantedBy automatically if present
     serviceConfig = {
       User = "fastapi";
       Group = "fastapi";
+      WorkingDirectory = "/var/lib/fastapi";
+      ExecStart = "/var/lib/fastapi/venv/bin/uvicorn app:app --app-dir /var/lib/fastapi --host 127.0.0.1 --port 8000 --lifespan off";
       Restart = "on-failure";
       Environment = "PYTHONUNBUFFERED=1";
     };
-
     preStart = ''
-      if [ ! -d /var/lib/fastapi ]; then
-        mkdir -p /var/lib/fastapi
-        if [ ! -d /var/lib/fastapi ]; then
-          echo "Cannot create /var/lib/fastapi" >&2
-          exit 1
-        fi
-      fi
-
-      if [ ! -d /var/lib/fastapi/venv ]; then
-        ${python.interpreter} -m venv /var/lib/fastapi/venv
-        /var/lib/fastapi/venv/bin/pip install --upgrade pip setuptools
-        /var/lib/fastapi/venv/bin/pip install fastapi uvicorn
-      fi
+      mkdir -p /var/lib/fastapi
+      chown -R fastapi:fastapi /var/lib/fastapi
     '';
-    serviceConfig.ExecStart = "/var/lib/fastapi/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000 --lifespan off";
+    install.wantedBy = ["multi-user.target"]; # ensures `systemctl enable` behaves as expected
   };
 }
