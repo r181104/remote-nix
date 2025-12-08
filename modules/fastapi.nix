@@ -19,11 +19,10 @@ in {
     group = "fastapi";
   };
 
-  systemd.tmpfiles.rules =
-    (config.systemd.tmpfiles.rules or [])
-    ++ [
-      "d /var/lib/fastapi 0750 fastapi fastapi - -"
-    ];
+  # add only the rules we need here — do not reference config.systemd.tmpfiles.rules
+  systemd.tmpfiles.rules = [
+    "d /var/lib/fastapi 0750 fastapi fastapi - -"
+  ];
 
   systemd.services.fastapi-app = {
     description = "FastAPI example app (uvicorn)";
