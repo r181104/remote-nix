@@ -43,7 +43,7 @@ in {
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [22];
+    allowedTCPPorts = [22 8000];
     allowedUDPPorts = [51820];
     interfaces."wg0" = {
       allowedTCPPorts = [3000 53];

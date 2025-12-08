@@ -45,8 +45,5 @@ in {
     '';
 
     serviceConfig.ExecStart = "/var/lib/fastapi/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000 --lifespan off";
-    # intentionally no install/wantedBy here — we'll enable the unit manually after rebuild
   };
-
-  networking.firewall.allowedTCPPorts = (config.networking.firewall.allowedTCPPorts or []) ++ [8000];
 }
