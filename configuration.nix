@@ -27,7 +27,7 @@ in {
 
   environment.shells = with pkgs; [bash];
 
-  services.ssm-agent.enable = true;
+  services.amazon-ssm-agent.enable = true;
   services.openssh = {
     enable = true;
     settings = {
