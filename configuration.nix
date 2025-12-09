@@ -38,7 +38,6 @@ in {
     jails.SSH = {
       enabled = true;
       filter = "sshd";
-      action = "iptables[name=SSH, port=ssh, protocol=tcp]";
       maxretry = 3;
       bantime = "1h";
     };
