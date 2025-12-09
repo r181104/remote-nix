@@ -1,34 +1,8 @@
 {
   config,
   pkgs,
-  lib,
-  modulesPath,
   ...
-}: let
-  pkgs = import (fetchTarball {
-    url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
-  }) {};
-  unstable = import (fetchTarball {
-    url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-  }) {};
-in {
-  imports = [
-    "${modulesPath}/virtualisation/amazon-image.nix"
-    # My custom modules
-    ./modules/wireguard.nix
-    ./modules/development.nix
-  ];
-
-  networking.hostName = "remote-nix";
-  users.users.sten = {
-    isNormalUser = true;
-    shell = pkgs.bash;
-    extraGroups = ["wheel"];
-    description = "sten";
-  };
-
-  environment.shells = with pkgs; [bash];
-
+}: {
   services.amazon-ssm-agent.enable = true;
   services.openssh = {
     enable = true;
@@ -47,12 +21,9 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    curl
-    git
     openssl
     qrencode
     wireguard-tools
-    unstable.neovim
   ];
 
   nix.gc.automatic = true;
@@ -79,14 +50,6 @@ in {
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = true;
   };
-
-  systemd.tmpfiles.rules = ["d /var/swap 0755 root root -"];
-  swapDevices = [
-    {
-      device = "/var/swap/swapfile";
-      size = 4096;
-    }
-  ];
 
   boot.kernel.sysctl."vm.swappiness" = 10;
 
