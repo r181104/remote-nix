@@ -54,13 +54,6 @@ in {
     unstable.neovim
   ];
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 4096;
-    }
-  ];
-
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
   nix.gc.options = "--delete-older-than 2d";
@@ -85,6 +78,16 @@ in {
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = true;
   };
+
+  systemd.tmpfiles.rules = ["d /var/swap 0755 root root -"];
+  swapDevices = [
+    {
+      device = "/var/swap/swapfile";
+      size = 4096;
+    }
+  ];
+
+  boot.kernel.sysctl."vm.swappiness" = 10;
 
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
