@@ -15,6 +15,7 @@ in {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
     # My custom modules
+    ./modules/base.nix
     ./modules/wireguard.nix
     ./modules/development.nix
   ];
