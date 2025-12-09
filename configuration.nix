@@ -35,12 +35,6 @@ in {
   };
   services.fail2ban = {
     enable = true;
-    jails.SSH = {
-      enabled = true;
-      filter = "sshd";
-      maxretry = 3;
-      bantime = "1h";
-    };
   };
 
   environment.systemPackages = with pkgs; [
