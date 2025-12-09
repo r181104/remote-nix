@@ -20,9 +20,11 @@ in {
   networking.hostName = "remote-nix";
   users.users.sten = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
     shell = pkgs.bash;
+    extraGroups = ["wheel"];
+    description = "sten";
   };
+
   environment.shells = with pkgs; [bash];
 
   services.openssh = {
