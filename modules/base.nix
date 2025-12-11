@@ -4,18 +4,6 @@
   ...
 }: {
   services.amazon-ssm-agent.enable = true;
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = true;
-      PubkeyAuthentication = true;
-      AuthenticationMethods = "publickey,password";
-      MaxAuthTries = 3;
-      LoginGraceTime = "30s";
-      AllowTcpForwarding = false;
-      X11Forwarding = false;
-    };
-  };
   services.fail2ban = {
     enable = true;
   };
@@ -34,13 +22,8 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [];
-    allowedUDPPorts = [51820];
-    interfaces."wg0" = {
-      allowedTCPPorts = [22 3000 53];
-      allowedUDPPorts = [53];
-    };
-    trustedInterfaces = ["wg0"];
+    allowedUDPPorts = [51820 53];
+    allowedTCPPorts = [3000];
     extraCommands = ''
       iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o ens5 -j MASQUERADE
     '';
@@ -49,7 +32,6 @@
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = true;
   };
-
   boot.kernel.sysctl."vm.swappiness" = 10;
 
   time.timeZone = "Asia/Kolkata";
