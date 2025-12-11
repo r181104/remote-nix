@@ -10,7 +10,7 @@
   };
 
   networking.wireguard.interfaces."wg0" = {
-    ips = ["10.100.0.1/24"];
+    ips = ["10.8.0.1/24"];
     listenPort = 51820;
     privateKeyFile = "/etc/wireguard/server.key";
 
@@ -18,12 +18,12 @@
       {
         # Laptop
         publicKey = "b3Ujc0svlDZHqypecZMziIYTdG3ECzgamAqnV+Fshjc=";
-        allowedIPs = ["10.100.0.2/32"];
+        allowedIPs = ["10.8.0.2/32"];
       }
       {
         # Phone
         publicKey = "P1xY9TkGgB5ZPBMmHKAcQ5lokdycZgOieIC5KiHCUjc=";
-        allowedIPs = ["10.100.0.3/32"];
+        allowedIPs = ["10.8.0.3/32"];
       }
     ];
   };
@@ -32,11 +32,11 @@
     enable = true;
     openFirewall = false;
     mutableSettings = true;
-    host = "10.100.0.1";
+    host = "10.8.0.1";
     port = 3000;
     settings = {
       dns = {
-        bind_host = "10.100.0.1";
+        bind_host = "10.8.0.1";
         port = 53;
         upstream_dns = [
           "https://1.1.1.1/dns-query"
