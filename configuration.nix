@@ -41,6 +41,7 @@ in {
     enableCompletion = true;
 
     shellAliases = {
+      rebuild = "nixos-rebuild switch";
       # ls (safe defaults)
       ls = "ls --color=auto";
       ll = "ls -lah --color=auto";
