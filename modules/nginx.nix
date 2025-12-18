@@ -6,7 +6,7 @@
   services.nginx = {
     enable = true;
 
-    # Tell nginx to trust Cloudflare and get real client IP
+    # Trust Cloudflare and extract real client IP
     appendHttpConfig = ''
       real_ip_header CF-Connecting-IP;
 
@@ -45,7 +45,7 @@
       forceSSL = true;
 
       extraConfig = ''
-        # Allow only Cloudflare (header-based, correct way)
+        # Block non-Cloudflare traffic
         if ($http_cf_connecting_ip = "") {
           return 403;
         }
@@ -66,10 +66,12 @@
       '';
     };
 
-    # Catch-all: block IP / unknown hosts
+    # Catch-all: block direct IP and unknown hosts
     virtualHosts."_" = {
       default = true;
-      return = "444";
+      extraConfig = ''
+        return 444;
+      '';
     };
   };
 
