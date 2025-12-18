@@ -13,6 +13,7 @@
 
       sslCertificate = "/etc/ssl/cloudflare/cert.pem";
       sslCertificateKey = "/etc/ssl/cloudflare/key.pem";
+      sslTrustedCertificate = "/etc/ssl/cloudflare/cert.pem";
 
       locations."/" = {
         index = "index.html";
@@ -26,6 +27,7 @@
 
       sslCertificate = "/etc/ssl/cloudflare/cert.pem";
       sslCertificateKey = "/etc/ssl/cloudflare/key.pem";
+      sslTrustedCertificate = "/etc/ssl/cloudflare/cert.pem";
     };
   };
 }
