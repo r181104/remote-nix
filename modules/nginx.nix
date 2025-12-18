@@ -14,4 +14,14 @@
       root = "/var/www/rishabhhaldiya.me";
     };
   };
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "rishabhhaldiya.me@proton.me";
+  };
+
+  services.nginx.virtualHosts."rishabhhaldiya.me".enableACME = true;
+  services.nginx.virtualHosts."rishabhhaldiya.me".forceSSL = true;
+
+  services.nginx.virtualHosts."www.rishabhhaldiya.me".enableACME = true;
+  services.nginx.virtualHosts."www.rishabhhaldiya.me".forceSSL = true;
 }
