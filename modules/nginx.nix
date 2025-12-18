@@ -13,7 +13,13 @@
     virtualHosts."www.rishabhhaldiya.me" = {
       root = "/var/www/rishabhhaldiya.me";
     };
+
+    virtualHosts."_" = {
+      default = true;
+      rejectSSL = true;
+    };
   };
+
   security.acme = {
     acceptTerms = true;
     defaults.email = "rishabhhaldiya.me@proton.me";
